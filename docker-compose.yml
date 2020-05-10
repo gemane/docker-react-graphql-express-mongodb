@@ -1,0 +1,44 @@
+version: '3.7'
+services:
+  mongodb:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    restart: unless-stopped
+    container_name: mongodb
+    volumes:
+      - ./database/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - mongodb_data_container:/data/db
+    environment: 
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root_password
+      - MONGO_INITDB_DATABASE=mydatabase
+  web-app:
+    depends_on: 
+      - api
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/fullstack-apollo-react-boilerplate/node_modules
+    ports:
+      - '3000:3000'
+    restart: on-failure
+    container_name: web-app
+  api:
+    depends_on: 
+      - mongodb
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    ports:
+      - '8000:8000'
+    restart: on-failure
+    container_name: api
+    volumes:
+      - /app/fullstack-apollo-express-mongodb-boilerplate/node_modules # Inside the container, don't try to override this folder, just leave as is
+    environment:
+      - DATABASE_URL=mongodb://mongo:db_password@mongodb:27017/mydatabase
+      - SECRET=asdlplplfwfwefwekwself.2342.dawasdq
+volumes: 
+  mongodb_data_container:

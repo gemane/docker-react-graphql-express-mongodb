@@ -43,7 +43,7 @@ $ mongo "mongodb://root:root_password@127.0.0.1:27017/mydatabase?authSource=admi
  
  ## Deployment
 
-Included is a deployment script `deployment-apollo-subscriptions-example.sh` so that the application can be started easily. 
+Included is a deployment script `deployment-react-graphql-express-mongodb` so that the application can be started easily. 
 
 Be careful as this script 
 

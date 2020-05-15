@@ -30,10 +30,10 @@ You should have docker and docker-compose installed on your machine.
  Your project will run in the browser as
 
 * Web App with React at 
-  * http://localhost:3000/
+  + http://localhost:3000/
 
  * API as NodeJS project with GraphQL at 
-   * http://localhost:8000/graphql
+  + http://localhost:8000/graphql
  
 Connect to database inside mongodb container
 
@@ -41,3 +41,16 @@ Connect to database inside mongodb container
 $ mongo "mongodb://root:root_password@127.0.0.1:27017/mydatabase?authSource=admin"
  ```
  
+ ## Deployment
+
+Included is a deployment script `deployment-apollo-subscriptions-example.sh` so that the application can be started easily. 
+
+Be careful as this script 
+
+* stops all relevant container
+* deletes all exited container
+* deletes unused images
+* deletes orphaned volumes
+* and deletes orphaned network nodes.
+
+Finally it builds and starts up all docker images.
